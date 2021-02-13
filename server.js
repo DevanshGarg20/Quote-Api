@@ -25,6 +25,19 @@ app.get('/api/quotes/random', (req,res,next) => {
   res.send({quote: randomElement})
 })
 
+app.post('/api/quotes', (req,res,next) => {
+  if(req.query.quote && req.query.person){
+  const newQuote = {
+    quote: req.query.quote,
+    person: req.query.person
+  }
+  quotes.push(newQuote)
+  res.status(201).send({quote: newQuote})
+}else{
+  res.status(404).send("please enter quote and person")
+}
+})
+
 app.listen(PORT, () => {
   console.log("server is up and running");
 })
